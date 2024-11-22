@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"log"
 )
 
@@ -13,5 +14,5 @@ func NewService() *Service {
 
 func (service *Service) Start(logger *log.Logger) error {
 	logger.Println("starting service")
-	return nil //errors.New("Service is not startable")
+	return errors.New("Service is not startable")
 }
