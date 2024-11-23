@@ -1,0 +1,14 @@
+syntax = "proto3";
+package transitpdx;
+
+message StopId {
+  int32 stop_Id = 1;
+}
+
+message NextScheduledTimes {
+  repeated int32 scheduled_time = 2;
+}
+
+service TransitPDX {
+  rpc GetScheduledTimes(StopId) returns (NextScheduledTimes);
+}
