@@ -1,5 +1,6 @@
 syntax = "proto3";
 package transitpdx;
+option go_package = "github.com/dangrmous/transit-pdx-service";
 
 message StopId {
   int32 stop_Id = 1;
