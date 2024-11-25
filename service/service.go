@@ -14,8 +14,10 @@ type Service struct {
 	serviceLogger *log.Logger
 }
 
-func New() *Service {
-	return &Service{}
+func New(serviceLogger *log.Logger) *Service {
+	return &Service{
+		serviceLogger: serviceLogger,
+	}
 }
 
 func (service *Service) Start(logger *log.Logger) error {
@@ -27,14 +29,14 @@ func (service *Service) Start(logger *log.Logger) error {
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterTransitPDXServer(grpcServer, New())
+	pb.RegisterTransitPDXServer(grpcServer, service)
 	grpcServer.Serve(lis)
 	return errors.New("Service is not startable")
 }
 
-func (s *Service) GetScheduledTimes(context.Context, *pb.StopId) (*pb.NextScheduledTimes, error) {
-	s.serviceLogger.Print("GetScheduledTimes called")
-	times := []int32{123, 432}
+func (s *Service) GetScheduledTimes(c context.Context, sid *pb.StopId) (*pb.NextScheduledTimes, error) {
+	s.serviceLogger.Printf("GetScheduledTimes sid=%s", sid)
+	times := []int32{321}
 	return &pb.NextScheduledTimes{
 		ScheduledTimes: times,
 	}, nil
