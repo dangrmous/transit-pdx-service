@@ -6,7 +6,7 @@ message StopId {
 }
 
 message NextScheduledTimes {
-  repeated int32 scheduled_time = 2;
+  repeated int32 scheduled_times = 2;
 }
 
 service TransitPDX {

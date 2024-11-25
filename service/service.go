@@ -23,6 +23,6 @@ func (service *Service) Start(logger *log.Logger) error {
 func (s *Service) GetScheduledTimes(context.Context, *pb.StopId) (*pb.NextScheduledTimes, error) {
 	times := []int32{123, 432}
 	return &pb.NextScheduledTimes{
-		ScheduledTime: times,
+		ScheduledTimes: times,
 	}, nil
 }
