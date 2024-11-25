@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/dangrmous/transit-pdx-service/service"
 	"log"
 	"os"
-	"transit-pdx-service/service"
 )
 
 func main() {
