@@ -9,10 +9,7 @@ type Config struct {
 }
 
 func NewConfig() *Config {
-	return &Config{
-		Port: 8080,
-		Host: "localhost",
-	}
+	return &Config{}
 }
 
 func (c *Config) GetTrimetApiKey() string {
