@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// NewClient returns a new instance of Client.
+// NewClient returns a pointer to a new instance of Client.
 func NewClient() *Client {
 	return &Client{}
 }
