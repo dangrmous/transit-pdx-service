@@ -4,14 +4,15 @@ import "os"
 
 type Config struct {
 	// Add configuration fields here, for example:
-	Port int
-	Host string
+	Port         int
+	Host         string
+	TrimetApiKey string
 }
 
 func NewConfig() *Config {
-	return &Config{}
-}
-
-func (c *Config) GetTrimetApiKey() string {
-	return os.Getenv("TRIMET_API_KEY")
+	return &Config{
+		Port:         8000,
+		Host:         "localhost",
+		TrimetApiKey: os.Getenv("TRIMET_API_KEY"),
+	}
 }

@@ -7,8 +7,10 @@ import (
 )
 
 // NewClient returns a pointer to a new instance of Client.
-func NewClient() *Client {
-	return &Client{}
+func NewClient(tmai string) *client {
+	return &client{
+		triMetAppID: tmai,
+	}
 }
 
 // TrimetClient defines the interface for accessing Trimet data.
@@ -17,11 +19,13 @@ type TrimetClient interface {
 }
 
 // Client implements the TrimetClient interface.
-type Client struct{}
+type client struct {
+	triMetAppID string
+}
 
 // GetArrivals retrieves arrival information for the specified location IDs.
-func (c *Client) GetArrivals(locIDs string) (string, error) {
-	url := fmt.Sprintf("https://developer.trimet.org/ws/v2/arrivals?locIDs=%s", locIDs)
+func (c client) GetArrivals(locIDs string) (string, error) {
+	url := fmt.Sprintf("https://developer.trimet.org/ws/v2/arrivals?locIDs=%s", locIDs, c.triMetAppID)
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", err

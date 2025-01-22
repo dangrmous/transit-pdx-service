@@ -3,7 +3,10 @@ package service
 import (
 	"context"
 	"errors"
+	"fmt"
+	"github.com/dangrmous/transit-pdx-service/config"
 	pb "github.com/dangrmous/transit-pdx-service/pb"
+	"github.com/dangrmous/transit-pdx-service/trimet"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -13,12 +16,6 @@ type Logger interface {
 	Print(v ...interface{})
 	Printf(format string, v ...interface{})
 	Println(v ...interface{})
-	Fatal(v ...interface{})
-	Fatalf(format string, v ...interface{})
-	Fatalln(v ...interface{})
-	Panic(v ...interface{})
-	Panicf(format string, v ...interface{})
-	Panicln(v ...interface{})
 }
 
 type Service struct {
@@ -26,16 +23,15 @@ type Service struct {
 	serviceLogger Logger
 }
 
-func New(serviceLogger Logger) *Service {
-	return &Service{
-		serviceLogger: serviceLogger,
-	}
+// Returns a pointer to a new service
+func New() *Service {
+	return &Service{}
 }
 
-func (service *Service) Start(logger *log.Logger) error {
+func (service *Service) Start(logger *log.Logger, conf *config.Config, tm trimet.TrimetClient) error {
 	service.serviceLogger = logger
 	logger.Println("starting service")
-	lis, err := net.Listen("tcp", "localhost:8000")
+	lis, err := net.Listen("tcp", fmt.Sprintf("%v:%d", conf.Host, conf.Port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

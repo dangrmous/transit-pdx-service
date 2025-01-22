@@ -10,12 +10,12 @@ import (
 
 func main() {
 	appLogger := log.New(os.Stdout, "", log.LstdFlags|log.Lmicroseconds|log.Lshortfile)
-	appService := service.New(appLogger)
-	//config := config.NewConfig()
-	//trimetClient := trimet.NewClient()
+	appService := service.New()
+	config := config.NewConfig()
+	trimetClient := trimet.NewClient()
 
 	// Let's get out of main asap
-	err := appService.Start(appLogger)
+	err := appService.Start(appLogger, config, trimetClient)
 	if err != nil {
 		appLogger.Fatal(err)
 	}
